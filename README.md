@@ -1,8 +1,8 @@
-# The Standard Skeleton Container
+# The Singleton (Skelleton) Container Standard 
 
 This document describes a programming standard for class initiation and dependencies.
 
-The goal set by the `Skeleton` is to standardize how frameworks and libraries make use of
+The goal set by the `Singleton Pattern` is to standardize and re-think how frameworks and libraries make use of
 instancing and scope resolution to obtain objects, parameters, and add dependacies. 
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
@@ -10,8 +10,8 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 interpreted as described in [RFC 2119][].
 
 The word `abstraction` in this document is to be interpreted as the extending TRAIT
-to be used as `Psr\Skeleton`. Let `Skeleton`, `Psr\Skeleton`, and `abstraction`
-be synonymous.
+to be used as `Psr\Singleton`. Let `Singleton`, `Skeleton`, `Psr\Singleton`, and `abstraction`
+be synonymous for the entirity of this document.
 
 The phase `Global Scope` in this document is to be interpreted as the container for 
 variables and closures. In the RECOMMENDED Example below, our `Global Scope` will hold 
