@@ -3,7 +3,7 @@
 This document describes a programming standard for class initiation and dependencies.
 
 The goal set by the `Singleton Pattern` is to standardize and re-think how frameworks and libraries make use of
-instancing and scope resolution to obtain objects, parameters, and add dependacies. 
+instancing and scope to resolve & obtain objects, parameters, and add dependacies. 
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
@@ -14,8 +14,8 @@ to be used as `Psr\Singleton`. Let `Singleton`, `Skeleton`, `Psr\Singleton`, and
 be synonymous for the entirity of this document.
 
 The phase `Global Scope` in this document is to be interpreted as the container for 
-variables and closures. In the example RECOMMENDED below, our `Global Scope` will hold 
-our data; however, this SHOULD NOT be concidered the only valid implementation.
+variables and closures. In the example presented below, our `Global Scope` will be the 
+golbal scope which stores our data; however, this SHOULD NOT be concidered the only valid implementation.
 
 [RFC 2119]: http://tools.ietf.org/html/rfc2119
 
@@ -34,14 +34,13 @@ our data; however, this SHOULD NOT be concidered the only valid implementation.
 - All modifications of the RECOMMENDED standard SHOULD NOT effect the abstraction's features 
   further described in this document. 
   
-- Unwanted features MAY easily be overridden for any class that uses `Psr\Skeleton`.
-  You can override a function defined by the abstraction by redeclairing the function 
+- Unwanted features MAY easily be overridden for any class that chooses to inhearite `Psr\Skeleton`.
+  You can override any method defined by the abstraction simply by redeclairing the methods name 
   in the child's class body. Note, the trait will override any extended class methods that 
-  share a further listed method name. The abstractions code be MUST follow current PSR 
-  return types and features.
+  share a method name. The abstractions code be MUST follow current PSR return types and features.
   
 - Singleton allows classes to be overridden by storing the new object in the 
-  `getInstance` static variable ( see examples ). Proceding calls to the overridden 
+  `getInstance` static variable ( see examples ). Preceding calls to the overridden 
   class will then be reflected.
 
 - The RECOMMENDED Example below uses the GLOBAL scope as a storage container to 
@@ -53,9 +52,8 @@ our data; however, this SHOULD NOT be concidered the only valid implementation.
   which will help handle method requests. Functions MUST be declaired as private to be used 
   with `Container`. Classes instancing is OPTIONAL and should only be used when needed. 
   
-- The `Skeleton` reserves the following variable names which MUST NOT be used for custom 
-  precedures in the supporting class.
-    
+- The `Skeleton` reserves the following variable names which SHOULD NOT be used in the supporting class.
+
     `getInstance`
     `methods`
     `storage`
@@ -204,9 +202,63 @@ Example\ExampleClass::newMethod('helloWorld', function ($print) {
 
 ```
 
+This example shows off the symantics. 
+"All we need to do is make sure we keep talking."
+
+```php
+<?php
+
+
+// This would instanciate the Modules\Route class and set a default url (route) if nothing is matched
+$route = Modules\Route::getInstance( 'easy/url/paths/' );
+
+$closures['simiGlobals'] = function () {
+    print ' we keep ';
+};
+
+// The '*' is a wild card
+$route->match( '{variables}/{optional?}/*', function ($variables, $optional) {
+
+    $this->variables = "Can easily route urls \n";
+
+    $this->optional = "Optional variables can be defined by a '?' \n";
+
+    $this->anywhere = "Easy data management; Not defined, no problem!";
+    
+} );
+
+
+print PHP_EOL . $optional . PHP_EOL .
+    "Know what works\n";
+
+echo 'what doesnt\n' . PHP_EOL
+    . "$variables \n$anywhere \n";
+
+
+$pinkfloyd = 'is make sure'; //
+
+// Don't like my Methods, Replace them
+// then call then.. in the same line.. in the same scope ;) 
+
+Modules\Request::addMethod( 'name', function ($arguments) {
+    print "$arguments\n";})->name('Flexible Formatting Without Parsing' . PHP_EOL);
+
+Modules\Request::name( "Closures from Object or Static Context\n" )->addMethod( 'party',
+    function ($what) use ($pinkfloyd) {
+        print "All we need $what $pinkfloyd";
+    })->party('to do')->simiGlobals();
+
+print "talking. \n";
+
+```
+
+Further/better Implementation examples can be viewed at the (work in progress) CarbonPHP fraimwork.
+( https://github.com/RichardTMiles/CarbonPHP )  
+
+
 2. Package
 ----------
 
 The abstraction as well as relevant example can be found at (https://github.com/RichardTMiles).
-[Psr/Container/Singleton](https://github.com/RichardTMiles) package. (still to-be-created)
+[Psr/Singleton] (https://github.com/RichardTMiles) package. (still to-be-created)
 
