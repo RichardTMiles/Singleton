@@ -152,8 +152,9 @@ A call to the `get` method with a non-existing id SHOULD throw a
 
 The Singleton Container allows data to be effeciantly stored and retreived without 
 the need to pass large arrays through the stack or use of a Service Locator. Many
-large classes use a constructor to initiate its data, however this model means that
-that the object may only be used in the scope it was defined in. 
+large classes use a constructor to initiate its data; however, this model means that
+that the object may only be used in the scope it was defined in, or must be passed to 
+other support objects. 
 
 Using a Skeleton system ensures that all data or procedure produced from ANY class 
 can be looked up ( or called ) without the need of reinstancing the object ( new $class ).
@@ -161,10 +162,8 @@ can be looked up ( or called ) without the need of reinstancing the object ( new
 For example, Singleton patterns are especially useful for ensureing only one instance, 
 or one connection of a database is active at a time. Standardising this model will 
 call for programmers to develope in a more pragmatic way. This differs from the 
-common 'one-and-done' principal wich descibes using all, or mostfunctionallity immediately 
-when an object is initiated. This would inturn call for objects to be greater in size, 
-functionallity, and protibillity thereby requireing less files ( aka load time ) 
-for needed procedures to spread across. 
+common 'one-and-done' principal wich descibes using all, or needed functionallity 
+immediately when an object is initiated (generally smallers more operation specific classes). 
 
 The built in data container also allows for less redeclairation of variables as arguments  
 to methods in the stack. This increases run time.
