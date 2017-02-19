@@ -63,7 +63,7 @@ golbal scope which stores our data; however, this SHOULD NOT be concidered the o
     `getInstance` 
     `__callStatic` 
     `__call`
-    `useSkeleton`
+    `Skeleton`
     `addMethod`   
     `__get`     
     `__set`    
@@ -91,10 +91,10 @@ golbal scope which stores our data; however, this SHOULD NOT be concidered the o
    methods, or public closures. Passed arguments will be sent to `Skeleton` which will be 
    returned (a *mixed* value).
 
-- `useSkeleton` takes two unique parameters: a method name and supporting arguments.  
-   If a method is found the passed arguments will be reflected. If the ran method results 
+- `Skeleton` takes two unique parameters: a method name and supporting arguments.  
+   If a method is found the passed arguments will be reflected. If the requested method results 
    in null or void, then the current object will be returned. The abstraction MUST first 
-   attempt to see if any coustom methods (sotred in the methods varible) have been defined 
+   attempt to see if any custom methods (sotred in the methods varible) have been defined 
    during the current execution. If not found, the `Skeleton` will then check if a method
    (type private) exists within the current scope. Finally, if still not avalible
    `useSkeleton` will attempt to see if there exists a closure defined in the public scope 
