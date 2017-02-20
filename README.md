@@ -262,5 +262,5 @@ The abstraction as well as relevant examples can be found at (https://github.com
 3. Special Thanks
 ----------
 
-To my older sister Morgan for getting detention to bring me my planner. 
+To my older sister Morgan for getting detention to bring me my planner (and for always having my back). 
 To my girlfriend Sam who listens to me talk about things she doesn't understand.
