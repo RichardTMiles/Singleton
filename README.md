@@ -158,7 +158,7 @@ that the object may only be used in the scope it was defined in, or must be pass
 other support objects.
 
 Using a Skeleton system ensures that all data or procedure produced from ANY class 
-can be looked up ( or called ) without the need of reinstating the object ( new $class ).
+can be looked up ( or called ) without the need of re-instance the object ( new $class ).
 
 For example, Singleton patterns are especially useful for ensuring only one instance, 
 or one connection of a database is active at a time. Standardizing this model will 
@@ -166,12 +166,8 @@ call for programmers to develop in a more pragmatic way. This differs from the
 common 'one-and-done' principle wich descibes using all, or needed functionallity 
 immediately when an object is initiated (generally smallers more operation specific classes). 
 
-The built in data container also allows for less redeclaration of variables as arguments  
-to methods in the stack. This increases run time.
-
-While large code bodies are normally the bane to computer scientist's existence, this
-concept MUST ONLY apply for functions or objects that handle similar data. In lamens
-terms, if they work on similar `sets` the methods should be encapsulated by a single object. 
+The built in data container also allows for less redeclaration of variables as 
+arguments-to-methods in the stack. This increases run time.
 
 ### 1.4 Skeleton Usage
 
@@ -267,4 +263,4 @@ The abstraction as well as relevant examples can be found at (https://github.com
 ----------
 
 To my older sister Morgan for getting detention to bring me my planner. 
-To my girlfriend Sam who listens to me talk about code she doesn't understand.
+To my girlfriend Sam who listens to me talk about things she doesn't understand.
