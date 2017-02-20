@@ -2,7 +2,7 @@
 
 This document describes a programming standard for class initiation and dependencies.
 
-The goal set by the `Singleton Pattern` is to standardize and re-think how frameworks and libraries make use of
+The goal set by the `Singleton Standard` is to standardize and re-think how frameworks and libraries make use of
 instancing and scope to resolve & obtain objects, parameters, and add dependencies. 
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
@@ -40,17 +40,17 @@ global scope which stores our data; however, this SHOULD NOT be considered the o
   share a method name. The abstractions code be MUST follow current PSR return types and features.
   
 - Singleton allows classes to be overridden by storing the new object in the 
-  `getInstance` static variable ( see examples ). Proceeding calls to the overridden 
+  `Skeleton` static variable ( see examples ). Proceeding calls to the overridden 
   class will then be reflected.
 
-- The RECOMMENDED Example below uses the GLOBAL scope as a storage container to 
+- The RECOMMENDED Example uses the GLOBAL scope as a storage container to 
   eleminate further initiation time; however, other implementations MAY be used
   to change the storage location (see extensions). 
    
 - You MAY OPTIONALLY use the abstraction's Skeleton Pattern to instantiate any class that 
-  uses `Psr\Skeleton`. The extension relies on the __call() and __callStatic() functions 
-  which will help handle method requests. Functions MUST be declared as private to be used 
-  with `Container`. Classes instancing is OPTIONAL and should only be used when needed. 
+  uses `Psr\Singleton`. The extension relies on the __call() and __callStatic() magic  
+  methods, which help handle all requests. Methods MUST be declared as private to bind requests 
+  to `Psr\Singleton`. Classes instancing is OPTIONAL and should only be used when needed. 
   
 - The `Skeleton` reserves the following variable names which SHOULD NOT be used in the supporting class.
 
@@ -58,7 +58,7 @@ global scope which stores our data; however, this SHOULD NOT be considered the o
     `methods`
     `storage`
     
-- When using `Psr\Skeleton` the following functions are made available: 
+- When using `Psr\Skeleton` the following methods are made available: 
 
     `getInstance` 
     `__callStatic` 
@@ -73,9 +73,9 @@ global scope which stores our data; however, this SHOULD NOT be considered the o
      `get`   
      `has` 
     `__invoke` 
+
       
-      
-- `getInstance` takes all passed parameters and passes it to the new instance's constructor.
+- `getInstance` takes all passed parameters and reflects it to the new instance's constructor.
    If the `getInstance` static variable isset, then it MUST be returned. Otherwise, this 
    Method will initiate the class and store the newly created object in the static `getInstance` 
    variable. This MUST be declaired as a public static function and return the `getInstance` object.
@@ -97,20 +97,21 @@ global scope which stores our data; however, this SHOULD NOT be considered the o
    attempt to see if any custom methods (stored in the methods varible) have been defined 
    during the current execution. If not found, the `Skeleton` will then check if a method
    (type private) exists within the current scope. Finally, if still not avalible
-   `useSkeleton` will attempt to see if there exists a closure defined in the public scope 
-   with the given name (see `addMethod` for further details). This may return anything 
-   (a *mixed* value) EXCEPT null. Note, if the method name is not found in an scope the 
+   `Skeleton` will attempt to see if there exists a closure defined in the public scope 
+   ( $closure[$name] ) with the given name (see `addMethod` for further details). This may return 
+   anything (a *mixed* value) EXCEPT null. If null is returned from a public closure, the 
+   called object will be returned. Note, if the method name is not found in an scope the 
    `useSkeleton` SHOULD throw an Exception. 
 
 - `addMethod` takes two unique parameters: a function name and a valid closure.
    This function utilizes binding to allow closures to inherit the current scope.
    Adding a closure as a method allows the use of any variable within scope (aka $this).
    When called with `useSkeleton`, If the closure has a no return (or returns null) 
-   the return values `$this`.
+   the return is `$this`.
   
 - `set` takes one unique and one OPTIONAL parameter: a varible name which will store 
    the value of the second parameter. If the second argument is null, the value of the
-   (private) storage variable will be used. This functions is valid for creating new 
+   (private) `storage` variable will be used. This functions is valid for creating new 
    instances (see usage). Return SHOULD be void.
    
 - `get` takes one OPTIONAL parameter: the varible's name to be returned.
@@ -154,7 +155,7 @@ The Singleton Container allows data to be efficiently stored and retreived witho
 the need to pass large arrays through the stack or use of a Service Locator. Many
 large classes use a constructor to initiate its data; however, this model means that
 that the object may only be used in the scope it was defined in, or must be passed to 
-other support objects. 
+other support objects.
 
 Using a Skeleton system ensures that all data or procedure produced from ANY class 
 can be looked up ( or called ) without the need of reinstating the object ( new $class ).
@@ -261,3 +262,9 @@ Further/better implementation examples can be viewed at the (work in progress) C
 The abstraction as well as relevant examples can be found at (https://github.com/RichardTMiles).
 [Psr/Singleton] (https://github.com/RichardTMiles) package. (still to-be-created)
 
+
+3. Special Thanks
+----------
+
+To my older sister Morgan for getting detention to bring me my planner. 
+To my girlfriend Sam who listens to me talk about code she doesn't understand.
