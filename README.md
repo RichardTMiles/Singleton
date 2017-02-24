@@ -1,4 +1,4 @@
-# The Singleton Standard (Skelleton Container)
+# The Singleton (Skelleton) Container
 
 This document describes a programming standard for class initiation and dependencies.
 
