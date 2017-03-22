@@ -17,10 +17,22 @@ trait Singleton
 
     public static function getInstance()
     {
-        if (!empty(self::$getInstance))
-            return self::$getInstance;
-        $class = new \ReflectionClass( get_called_class() );
+        // see if the class has already been called this run
+        if (!empty(self::$getInstance)) return self::$getInstance;
+
+        $calledClass = get_called_class();
+
+        // check if the object has been sterilized in the session
+        if (array_key_exists( $calledClass, $_SESSION )) {
+            if (is_object( self::$getInstance = unserialize( $_SESSION[$calledClass])))     // This will invoke the __wake up operator
+                return self::$getInstance;
+            throw new \Exception('bad unserialize');
+        }
+
+        $class = new \ReflectionClass( $calledClass );
+
         self::$getInstance = $class->newInstanceArgs( func_get_args() );
+
         return self::$getInstance;
     }
 
@@ -37,7 +49,7 @@ trait Singleton
                 $result);
 
         if (method_exists($this , $methodName))
-            return (empty($result = call_user_func_array(array($this, $methodName), $arguments)) ?
+            return (null == ($result = call_user_func_array(array($this, $methodName), $arguments)) ?
                 $this :
                 $result);
 
@@ -59,6 +71,18 @@ trait Singleton
             // Nested to ensure carbon returns the correct value of self
             throw new \Exception( "New Method Must Be A Valid Closure" );
         }
+    }
+
+    public function __sleep()
+    {
+        return 0;
+    }
+
+
+    public function __destruct()
+    {
+        if ($this->__sleep() !== 0) $_SESSION[__CLASS__] = serialize( $this );
+        else if(array_key_exists( __CLASS__, $_SESSION )) unset($_SESSION[__CLASS__]);
     }
 
     public function &__get($variable)
