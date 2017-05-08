@@ -204,34 +204,21 @@ This example shows off the symantics.
 ```php
 <?php
 
-
 // This would instanciate the Modules\Route class and set a default url (route) if nothing is matched
 $route = Modules\Route::getInstance( 'easy/url/paths/' );
 
-$closures['simiGlobals'] = function () {
-    print ' we keep ';
-};
+$closures['simiGlobals'] = function () { print ' we keep '; };
 
 // The '*' is a wild card
 $route->match( '{variables}/{optional?}/*', function ($variables, $optional) {
-
     $this->variables = "Can easily route urls \n";
-
     $this->optional = "Optional variables can be defined by a '?' \n";
-
     $this->anywhere = "Easy data management; Not defined, no problem!";
-    
 } );
+    
+echo "$variables \n$anywhere \n";
 
-
-print PHP_EOL . $optional . PHP_EOL .
-    "Know what works\n";
-
-echo 'what doesnt\n' . PHP_EOL
-    . "$variables \n$anywhere \n";
-
-
-$pinkfloyd = 'is make sure'; //
+$pinkfloyd = 'is make sure';
 
 // Don't like my Methods, Replace them
 // then call then.. in the same line.. in the same scope ;) 
