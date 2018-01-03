@@ -88,12 +88,32 @@ class Bar () {
        $this->foo = $foo;
    }
    
-   private function fooToss(){
-        print 'A random method implementation' . $this->foo;
+   // private is less secure than public in a singleton, but has gains in porotabillity
+   // defined private are accesible to the global scope and overridable call time
+   private function fooToss()   
+   {                            
+        print 'A random method implementation, ' . $this->foo;
    }
 }
 
-$classBar = Request::getInstance();
+$classBar = new Bar;    // no need to get the instance this time
+
+$classBar->setFoo('hi');
+
+// The following is no mistake
+$classBar->fooToss();   // prints: A random method implementation, hi 
+
+$classBar->fooToss = function() {
+    print 'hello';
+};
+
+$classBar->fooToss();                       // prints: hello
+
+$classBar->fooToss = 'I need a beer';
+  
+print $classBar->fooToss;                   // prints: I need a beern  
+
+$classBar->fooToss();   
 
 // Lets override a class and namespace, this my be useful when geveloping around interfaces or debugging 
 
